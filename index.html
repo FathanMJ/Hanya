@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Our romantic love story - a retro vintage journey of love and memories together">
+  <title>Our Love Story ♥ A Vintage Romance</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- Global Retro Effects -->
+  <div class="film-grain"></div>
+  <div class="scanlines"></div>
+  <div class="vhs-tracking"></div>
+
+  <!-- Camera Shutter Overlay -->
+  <div class="shutter-overlay" id="shutter-overlay"></div>
+
+  <!-- 3D Background -->
+  <canvas id="heart-canvas"></canvas>
+
+  <!-- ================================
+       SCREEN 1: LANDING PAGE
+       ================================ -->
+  <div class="screen landing-page active" id="screen-landing">
+    <div class="tv-frame">
+      <div class="tv-antenna">
+        <div class="ant-left"><div class="ant-tip"></div></div>
+        <div class="ant-right"><div class="ant-tip"></div></div>
+      </div>
+      <div class="tv-screen">
+        <div class="landing-date">♥ 14 . 02 . 2024 ♥</div>
+        <div class="landing-title">Romeo</div>
+        <div class="landing-ampersand">&</div>
+        <div class="landing-title" style="animation-delay: 1.6s;">Juliet</div>
+        <div class="landing-subtitle">"Cinta sejati tak mengenal waktu..."</div>
+        <button class="landing-enter-btn" id="btn-enter" onclick="enterSite()">
+          ▶ Masuk
+        </button>
+      </div>
+      <div class="tv-knobs">
+        <div class="tv-knob"></div>
+        <div class="tv-knob"></div>
+        <div class="tv-knob"></div>
+      </div>
+      <div class="tv-brand">♥ Love Channel ♥</div>
+    </div>
+  </div>
+
+  <!-- ================================
+       SCREEN 2: MENU PAGE
+       ================================ -->
+  <div class="screen menu-page" id="screen-menu">
+    <div class="menu-scroll-wrap">
+      <div class="back-row">
+        <button class="back-btn" onclick="goToLanding()">← Kembali</button>
+      </div>
+
+      <div class="menu-header">
+        <h1 class="menu-title">Kisah Cinta Kita</h1>
+        <p class="menu-sub">— Pilih Kenangan —</p>
+      </div>
+
+      <div class="film-strip-bar">
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+      </div>
+
+      <div class="menu-grid" id="menu-grid">
+        <div class="menu-card" onclick="openContent('story')">
+          <span class="menu-card-icon">📽️</span>
+          <div class="menu-card-title">Our Story</div>
+          <div class="menu-card-desc">Perjalanan cinta kita</div>
+        </div>
+        <div class="menu-card" onclick="openContent('memories')">
+          <span class="menu-card-icon">📷</span>
+          <div class="menu-card-title">Kenangan</div>
+          <div class="menu-card-desc">Foto-foto terindah</div>
+        </div>
+        <div class="menu-card" onclick="openContent('letter')">
+          <span class="menu-card-icon">✉️</span>
+          <div class="menu-card-title">Surat Cinta</div>
+          <div class="menu-card-desc">Untukmu tersayang</div>
+        </div>
+        <div class="menu-card" onclick="openContent('quotes')">
+          <span class="menu-card-icon">📻</span>
+          <div class="menu-card-title">Kata Cinta</div>
+          <div class="menu-card-desc">Kutipan romantis</div>
+        </div>
+        <div class="menu-card" onclick="openContent('song')">
+          <span class="menu-card-icon">🎵</span>
+          <div class="menu-card-title">Lagu Kita</div>
+          <div class="menu-card-desc">Melodi cinta</div>
+        </div>
+        <div class="menu-card" onclick="openContent('wishes')">
+          <span class="menu-card-icon">💌</span>
+          <div class="menu-card-title">Ucapan</div>
+          <div class="menu-card-desc">Kirim doa & harapan</div>
+        </div>
+      </div>
+
+      <div class="film-strip-bar">
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+        <div class="film-hole"></div><div class="film-hole"></div><div class="film-hole"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: OUR STORY
+       ================================ -->
+  <div class="screen content-page" id="content-story">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">📽️</span>
+        <h2 class="content-header-title">Perjalanan Cinta Kita</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <div class="counter-section">
+        <div class="counter-tv">
+          <div class="counter-label-text">♥ Bersama Selama ♥</div>
+          <div class="counter-grid">
+            <div class="counter-item"><div class="counter-number" id="c-years">0</div><div class="counter-unit">Tahun</div></div>
+            <div class="counter-item"><div class="counter-number" id="c-months">0</div><div class="counter-unit">Bulan</div></div>
+            <div class="counter-item"><div class="counter-number" id="c-days">0</div><div class="counter-unit">Hari</div></div>
+            <div class="counter-item"><div class="counter-number" id="c-hours">0</div><div class="counter-unit">Jam</div></div>
+            <div class="counter-item"><div class="counter-number" id="c-mins">0</div><div class="counter-unit">Menit</div></div>
+            <div class="counter-item"><div class="counter-number" id="c-secs">0</div><div class="counter-unit">Detik</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">14 Februari 2024</div>
+            <h3 class="timeline-heading">Pertama Kali Bertemu</h3>
+            <p class="timeline-text">Hari itu langit begitu cerah, seolah semesta tahu bahwa dua hati akan bertemu. Tatapan pertama itu mengubah segalanya.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">1 Maret 2024</div>
+            <h3 class="timeline-heading">Kencan Pertama</h3>
+            <p class="timeline-text">Secangkir kopi, tawa yang tak berhenti, dan obrolan yang seakan tiada akhir. Malam itu aku tahu, kamu adalah orang yang selama ini aku cari.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">14 April 2024</div>
+            <h3 class="timeline-heading">Resmi Bersama</h3>
+            <p class="timeline-text">Di bawah langit penuh bintang, kamu menggenggam tanganku dan berkata, "Aku ingin bersamamu." Sejak detik itu, hidupku tak pernah sama lagi.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">25 Desember 2024</div>
+            <h3 class="timeline-heading">Natal Pertama Bersama</h3>
+            <p class="timeline-text">Hadiah terbaikku bukan di bawah pohon Natal, melainkan kamu yang ada di sisiku. Berdua di malam Natal, berbagi kehangatan tiada tara.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date">Selamanya</div>
+            <h3 class="timeline-heading">Dan Seterusnya...</h3>
+            <p class="timeline-text">Perjalanan kita baru dimulai. Setiap hari bersamamu adalah halaman baru dalam kisah cinta terindah.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Kisah yang takkan berakhir</p>
+        <p class="footer-sub">♥ LOVE STORY ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: MEMORIES
+       ================================ -->
+  <div class="screen content-page" id="content-memories">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">📷</span>
+        <h2 class="content-header-title">Kenangan Terindah</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" style="--rot: -3deg;">
+          <div class="polaroid-frame photo-pan" onclick="openLightbox('memory1.jpg')">
+            <img src="memory1.jpg" alt="Di bawah sakura" loading="lazy">
+            <div class="polaroid-caption">Di Bawah Sakura 🌸</div>
+          </div>
+        </div>
+        <div class="gallery-item" style="--rot: 2deg;">
+          <div class="polaroid-frame photo-pan-reverse" onclick="openLightbox('memory2.jpg')">
+            <img src="memory2.jpg" alt="Dinner romantis" loading="lazy">
+            <div class="polaroid-caption">Malam Romantis ✨</div>
+          </div>
+        </div>
+        <div class="gallery-item" style="--rot: -1deg;">
+          <div class="polaroid-frame photo-pan" onclick="openLightbox('memory3.jpg')">
+            <img src="memory3.jpg" alt="Petualangan bersama" loading="lazy">
+            <div class="polaroid-caption">Petualangan Kita 🏔️</div>
+          </div>
+        </div>
+        <div class="gallery-item" style="--rot: 3deg;">
+          <div class="polaroid-frame photo-pan-reverse" onclick="openLightbox('memory4.jpg')">
+            <img src="memory4.jpg" alt="Menari di hujan" loading="lazy">
+            <div class="polaroid-caption">Menari di Hujan 🌧️</div>
+          </div>
+        </div>
+        <div class="gallery-item" style="--rot: -2deg;">
+          <div class="polaroid-frame photo-pan" onclick="openLightbox('memory5.jpg')">
+            <img src="memory5.jpg" alt="Melihat bintang" loading="lazy">
+            <div class="polaroid-caption">Bintang-Bintang Kita ⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Setiap momen bersamamu berharga</p>
+        <p class="footer-sub">♥ MEMORIES ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: LOVE LETTER
+       ================================ -->
+  <div class="screen content-page" id="content-letter">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">✉️</span>
+        <h2 class="content-header-title">Surat Cinta</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <div class="letter-paper">
+        <div class="letter-stamp">💌</div>
+        <div class="letter-greeting">Sayangku yang tercinta,</div>
+        <div class="letter-body">
+          <p>Kalau ada satu hal yang ingin aku katakan padamu, itu adalah terima kasih. Terima kasih telah menjadi alasanku untuk tersenyum setiap pagi, dan menjadi harapanku di setiap malam.</p>
+          <p>Kamu tahu, cinta itu bukan tentang menemukan orang yang sempurna, tapi tentang menemukan seseorang yang membuat segalanya terasa sempurna. Dan kamu adalah orang itu untukku.</p>
+          <p>Aku berjanji untuk selalu ada di sisimu — di saat suka maupun duka, di hari cerah maupun mendung. Karena bersamamu, setiap badai pun terasa seperti hujan di musim panas yang menyegarkan.</p>
+          <p>Aku mencintaimu lebih dari yang bisa diungkapkan kata-kata, lebih dari yang bisa diukur oleh waktu, dan lebih dari yang bisa dijangkau oleh angkasa.</p>
+        </div>
+        <div class="letter-signature">Selamanya milikmu ♥</div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Dengan segenap cinta</p>
+        <p class="footer-sub">♥ LOVE LETTER ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: QUOTES
+       ================================ -->
+  <div class="screen content-page" id="content-quotes">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">📻</span>
+        <h2 class="content-header-title">Kata-Kata Cinta</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <div class="cassette-player">
+        <div class="cassette-reels">
+          <div class="cassette-reel"></div>
+          <div class="cassette-reel" style="animation-direction: reverse;"></div>
+        </div>
+        <div id="quote-text" class="quote-text">"Aku memilihmu. Dan aku akan terus memilihmu. Setiap hari, tanpa ragu, tanpa jeda."</div>
+        <div id="quote-author" class="quote-author">— Untukmu, Selamanya</div>
+        <div class="quote-nav" id="quote-nav"></div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Kata-kata dari hati</p>
+        <p class="footer-sub">♥ QUOTES ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: SONG
+       ================================ -->
+  <div class="screen content-page" id="content-song">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">🎵</span>
+        <h2 class="content-header-title">Lagu Kita</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <div class="vinyl-player">
+        <div class="vinyl-case">
+          <div class="vinyl-record" id="vinyl-record"></div>
+          <div class="song-info">
+            <div class="song-name">Perfect</div>
+            <div class="song-artist">Ed Sheeran</div>
+          </div>
+          <button class="play-btn" id="play-btn" onclick="togglePlay()">▶</button>
+        </div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Melodi cinta kita</p>
+        <p class="footer-sub">♥ OUR SONG ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       CONTENT: WISHES
+       ================================ -->
+  <div class="screen content-page" id="content-wishes">
+    <div class="back-row">
+      <button class="back-btn" onclick="backToMenu()">← Menu</button>
+    </div>
+    <div class="content-inner">
+      <div class="content-header">
+        <span class="content-header-icon">💌</span>
+        <h2 class="content-header-title">Kirim Ucapan</h2>
+        <div class="content-header-line"></div>
+      </div>
+
+      <form class="wish-form" id="wish-form" onsubmit="submitWish(event)">
+        <div class="form-group">
+          <label for="wish-name">Nama</label>
+          <input type="text" id="wish-name" placeholder="Tuliskan namamu..." required>
+        </div>
+        <div class="form-group">
+          <label for="wish-message">Pesan</label>
+          <textarea id="wish-message" placeholder="Tuliskan doa dan harapanmu..." required></textarea>
+        </div>
+        <button type="submit" class="btn-send">♥ Kirim Ucapan ♥</button>
+      </form>
+
+      <div class="wishes-list" id="wishes-list">
+        <div class="wish-card">
+          <div class="wish-name">Mama & Papa</div>
+          <div class="wish-message">Semoga cinta kalian selalu abadi dan penuh kebahagiaan. Kami berdoa yang terbaik untuk kalian berdua!</div>
+          <div class="wish-time">♥ Dengan cinta</div>
+        </div>
+        <div class="wish-card">
+          <div class="wish-name">Sahabat Terbaik</div>
+          <div class="wish-message">Kalian pasangan paling serasi! Semoga selalu dimudahkan jalannya. Love you both!</div>
+          <div class="wish-time">♥ Dengan cinta</div>
+        </div>
+      </div>
+
+      <div class="content-footer">
+        <div class="footer-heart" onclick="heartBurst(event)">❤️</div>
+        <p class="footer-text">Terima kasih untuk doanya</p>
+        <p class="footer-sub">♥ WISHES ♥</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img src="" alt="Memory" id="lightbox-img">
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
